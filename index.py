@@ -8,7 +8,7 @@ import os
 intents = discord.Intents.default()
 intents.message_content = True
 
-my_secret = os.environ['Bot_Token']
+my_secret = os.environ.get['Bot_Token']
 
 bot = commands.Bot(command_prefix='$', intents=intents)
 
