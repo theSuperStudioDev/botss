@@ -5,7 +5,7 @@ import aiofiles
 import json
 import os
 
-API_KEY = os.getenv("PROXY_API_KEY", "YourSecureApiKey")
+API_KEY = os.getenv("PROXY_API_KEY", "FireyIsGood1191")
 LOG_FILE = "webhook_logs.json"  # Using JSON for structured logging
 
 # Ensure the log file exists
