@@ -1,4 +1,20 @@
 [
-    {"ip": "192.168.1.1", "webhook_url": "https://discord.com/api/webhooks/...", "data": {"content": "Hello!"}},
-    {"ip": "203.0.113.5", "webhook_url": "https://discord.com/api/webhooks/...", "data": {"content": "Test message!"}}
+  {
+    "ip": "192.168.1.10",
+    "webhook_url": "https://discord.com/api/webhooks/1234567890/abcde",
+    "data": {
+      "content": "Hello, world!",
+      "username": "Webhook Bot"
+    },
+    "timestamp": "2025-01-09T14:30:00Z"
+  },
+  {
+    "ip": "192.168.1.15",
+    "webhook_url": "https://discord.com/api/webhooks/0987654321/zyxwv",
+    "data": {
+      "content": "Another message",
+      "username": "Another Bot"
+    },
+    "timestamp": "2025-01-09T15:00:00Z"
+  }
 ]
