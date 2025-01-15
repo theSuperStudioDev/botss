@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webhook Proxy Traffic Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007acc;
+            color: white;
+        }
+        .loading {
+            font-size: 18px;
+            color: #007acc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Webhook Proxy Traffic Dashboard</h1>
+    <p class="loading">Loading traffic logs, please wait...</p>
+    <table id="logTable" style="display: none;">
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Webhook URL</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody id="logBody"></tbody>
+    </table>
+
+    <script>
+        async function loadLogs() {
+            try {
+                const response = await fetch('/logs.json'); // Endpoint to return logs
+                if (!response.ok) throw new Error('Failed to load logs.');
+                const logs = await response.json();
+
+                const table = document.getElementById('logTable');
+                const logBody = document.getElementById('logBody');
+                const loadingText = document.querySelector('.loading');
+                
+                loadingText.style.display = 'none';
+                table.style.display = 'table';
+                
+                logs.forEach(log => {
+                    const row = document.createElement('tr');
+                    const ipCell = document.createElement('td');
+                    const urlCell = document.createElement('td');
+                    const dataCell = document.createElement('td');
+
+                    ipCell.textContent = log.ip;
+                    urlCell.textContent = log.webhook_url;
+                    dataCell.textContent = JSON.stringify(log.data, null, 2);
+
+                    row.appendChild(ipCell);
+                    row.appendChild(urlCell);
+                    row.appendChild(dataCell);
+                    logBody.appendChild(row);
+                });
+            } catch (error) {
+                document.querySelector('.loading').textContent = 'Error loading logs.';
+                console.error(error);
+            }
+        }
+
+        loadLogs();
+    </script>
+</body>
+</html>
