@@ -51,6 +51,12 @@ async def handle_proxy(request):
     except Exception as e:
         return web.Response(status=500, text=f"Error: {str(e)}")
 
+async def handle_logs(request):
+    """Serve the webhook logs as JSON."""
+    async with aiofiles.open(LOG_FILE, mode="r") as log_file:
+        logs = await log_file.read()
+        return web.Response(text=logs, content_type='application/json')
+
 async def handle_dashboard(request):
     """Serve a simple traffic dashboard."""
     async with aiofiles.open(LOG_FILE, mode="r") as log_file:
@@ -63,6 +69,7 @@ async def handle_dashboard(request):
 
 app = web.Application()
 app.router.add_post('/proxystuff', handle_proxy)
+app.router.add_get('/logs.json', handle_logs)
 app.router.add_get('/', handle_dashboard)
 
 if __name__ == '__main__':
