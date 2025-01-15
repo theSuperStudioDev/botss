@@ -51,17 +51,17 @@
     <script>
         async function loadLogs() {
             try {
-                const response = await fetch('/logs.json'); // Endpoint to return logs
+                const response = await fetch('/logs.json'); // Request logs from server
                 if (!response.ok) throw new Error('Failed to load logs.');
                 const logs = await response.json();
-
+                
                 const table = document.getElementById('logTable');
                 const logBody = document.getElementById('logBody');
                 const loadingText = document.querySelector('.loading');
-                
+
                 loadingText.style.display = 'none';
                 table.style.display = 'table';
-                
+
                 logs.forEach(log => {
                     const row = document.createElement('tr');
                     const ipCell = document.createElement('td');
